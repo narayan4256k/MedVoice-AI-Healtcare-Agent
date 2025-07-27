@@ -46,7 +46,7 @@ export function NavbarDemo() {
           {user? <div  className="flex items-center gap-4" >
             <UserButton/>  
             <Link href="/dashboard">
-              <Button onClick={() => route.push("/dashboard")}>
+            <Button>
                 Dashboard
               </Button>
             </Link>
