@@ -14,8 +14,9 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 
 import { useState } from "react";
-import { AnimatedModalDemo } from "./AnimatedButton";
+//import { AnimatedModalDemo } from "./AnimatedButton";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export function NavbarDemo() {
   const navItems = [
@@ -43,8 +44,12 @@ export function NavbarDemo() {
     
           <NavItems items={navItems} />
           {user? <div  className="flex items-center gap-4" >
-            <UserButton/>            
-            <AnimatedModalDemo /> 
+            <UserButton/>  
+            <Link href="/dashboard">
+              <Button onClick={() => route.push("/dashboard")}>
+                Dashboard
+              </Button>
+            </Link>
           </div>:
           <NavbarButton variant="gradient">
           <Link href="/sign-in" className="w-full h-full block text-center">
