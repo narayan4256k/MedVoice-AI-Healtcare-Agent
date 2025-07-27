@@ -10,12 +10,12 @@ export type DoctorAgent = {
   image: string;
   agentPrompt: string;
 };
-
 type Props = {
   info: DoctorAgent;
+  onStartConsultation?: (doctor: DoctorAgent) => void;
 };
 
-function DoctorCard({ info }: Props) {
+function DoctorCard({ info, onStartConsultation }: Props) {
   return (
     <div className="border border-gray-300 border-2 rounded-lg p-2">
       <Image
@@ -27,8 +27,11 @@ function DoctorCard({ info }: Props) {
       />
       <h2 className="text-lg font-bold">{info.specialist}</h2>
       <p className="text-sm text-gray-500 line-clamp-2">{info.description}</p>
-      
-      <Button className="w-full mt-3">
+
+      <Button
+        className="w-full mt-3"
+        onClick={() => onStartConsultation?.(info)}
+      >
         Start Consultation
         <IconArrowRight />
       </Button>
