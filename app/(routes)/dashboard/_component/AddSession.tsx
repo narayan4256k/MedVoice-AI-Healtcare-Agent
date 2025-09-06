@@ -60,7 +60,7 @@ function AddSession() {
       <DialogTitle>Add Basic Details</DialogTitle>
       <DialogDescription asChild>
         {!suggestedDoctors?<div>
-            <h2 className='mb-2 text-gray-700'>Add Symptoms or Any other Details</h2>
+            <h2 className='mb-2 text-gray-700 dark:text-gray-300'>Add Symptoms or Any other Details</h2>
             <Textarea placeholder='Add Details Here...' className='h-70' onChange={(e)=>setNote(e.target.value)}/>
         </div>:
         <div>

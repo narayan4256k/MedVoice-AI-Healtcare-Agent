@@ -17,6 +17,8 @@ import { useState } from "react";
 //import { AnimatedModalDemo } from "./AnimatedButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "./toggle";
+import { useTheme } from "next-themes";
 
 export function NavbarDemo() {
   const navItems = [
@@ -33,41 +35,62 @@ export function NavbarDemo() {
       link: "#contact",
     },
   ];
-  const {user} = useUser();
+
+  const { theme } = useTheme();
+  const { user } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-transparent">
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <Image src={"/ai-medical.png"} alt="Logo" width={120} height={70} className="h-10 w-30 mx-7" />
-    
+          <Image
+            src={
+              theme === "dark" || theme === "system"
+                ? "/darklogo.png"
+                : "/lightlogo.png"
+            } // 👈 conditional logo
+            alt="Logo"
+            width={120}
+            height={70}
+            className="h-13 w-45 mx-7"
+          />
+
           <NavItems items={navItems} />
-          {user? <div  className="flex items-center gap-4" >
-            <UserButton/>  
-            <Link href="/dashboard">
-            <Button>
-                Dashboard
-              </Button>
-            </Link>
-          </div>:
-          <NavbarButton variant="gradient">
-          <Link href="/sign-in" className="w-full h-full block text-center">
-            Login
-          </Link>
-          </NavbarButton>
-        }
-         
+          {user ? (
+            <div className="flex items-center gap-4">
+              <UserButton />
+              <ModeToggle />
+            </div>
+          ) : (
+            <NavbarButton variant="gradient">
+              <Link
+                href="/sign-in"
+                className="w-full h-full block text-center z-50"
+              >
+                Login
+              </Link>
+            </NavbarButton>
+          )}
         </NavBody>
 
         {/* Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
-            <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
+            {/* Left side → Logo + Dropdown Toggle */}
+            <div className="flex items-center gap-4">
+              <MobileNavToggle
+                isOpen={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              />
+              <NavbarLogo />
+            </div>
+
+            {/* Right side → User + Theme Toggle */}
+            <div className="flex items-center gap-4">
+              <UserButton />
+              <ModeToggle />
+            </div>
           </MobileNavHeader>
 
           <MobileNavMenu
@@ -85,20 +108,14 @@ export function NavbarDemo() {
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Login
-              </NavbarButton>
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Book a call
-              </NavbarButton>
+              <Link href={"/dashboard"}>
+                <Button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full"
+                >
+                  Dashboard
+                </Button>
+              </Link>
             </div>
           </MobileNavMenu>
         </MobileNav>
@@ -108,5 +125,3 @@ export function NavbarDemo() {
     </div>
   );
 }
-
-

@@ -15,7 +15,7 @@ function SuggestedDoctorCard({DoctorAgent,setSelectedDoctor,selectedDoctor}: Pro
     hover:border-blue-500 hover:scale-105`}
   onClick={() => setSelectedDoctor(DoctorAgent)}>
         <Image src={DoctorAgent?.image} alt={DoctorAgent?.specialist} width={100} height={100} className='w-[100px] h-[100px] rounded-full object-cover'/>
-        <h2 className='font-bold text-sm text-black text-center m-2'>{DoctorAgent?.specialist}</h2>
+        <h2 className='font-bold text-sm text-black dark:text-white text-center m-2'>{DoctorAgent?.specialist}</h2>
         <p className='text-xs text-center line-clamp-3'>{DoctorAgent?.description}</p>
     </div>
   )

@@ -1,4 +1,8 @@
+"use client";
+
+import { ModeToggle } from '@/app/_components/toggle';
 import { UserButton } from '@clerk/nextjs';
+import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import React from 'react'
 
@@ -6,7 +10,7 @@ const MenuOptions = [
   {
     id: 1,
     name: "Home",
-    link: "/dashboard",
+    link: "/",
   },
   {
     id: 2,
@@ -24,11 +28,19 @@ const MenuOptions = [
     link: "/profile",
   },
 ];
+ 
 
 function AppHeader() {
+  const { theme } = useTheme();
   return (
     <div className='flex items-center justify-between p-4 shadow px-10 md:px-20 lg:px-40 '>
-        <Image src="/ai-medical.png" alt="Logo" width={120} height={70} className="h-10 w-30 mx-7" />
+        <Image
+                    src={theme === "dark"||theme ==="system" ? "/darklogo.png" : "/lightlogo.png"} // 👈 conditional logo
+                    alt="Logo"
+                    width={120}
+                    height={70}
+                    className="h-13 w-45 mx-7"
+                  />
         <div className='hidden md:flex items-center gap-10 '>
           {MenuOptions.map((option,index) => (
             <div key={index}>
@@ -36,7 +48,10 @@ function AppHeader() {
             </div>
           ))}
         </div>
-       <UserButton/>
+        <div className='items-center gap-4 hidden md:flex'>
+          <UserButton/>
+          <ModeToggle/>
+       </div>
     </div>
   )
 }

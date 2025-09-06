@@ -3,6 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -120,3 +127,54 @@
     @apply bg-background text-foreground;
   }
 }
+
+::selection{
+  background:rgb(78, 78, 78); /* blue-500 */
+  color: white;
+}
+
+.dark ::selection {
+  background:rgba(0, 255, 255, 0.949); /* blue-500 */
+  color: black;
+}
+
+html {
+  scroll-behavior: smooth;  
+  scroll-padding-top: 8rem; 
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #0f172a;
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+

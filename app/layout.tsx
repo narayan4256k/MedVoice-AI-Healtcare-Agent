@@ -10,6 +10,7 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import Provider from "./provider";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,9 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Provider>
-            {children}
+             <ThemeProvider attribute="class" defaultTheme="dark">
+          {children}
+        </ThemeProvider>
           </Provider>
         </body>
       </html>
