@@ -3,7 +3,7 @@ import { openai } from "@/config/OpenAiModel";
 import { chatTable } from "@/config/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { stringify } from "querystring";
-
+import { eq } from "drizzle-orm";
 const REPORT_SYSTEM_PROMPT = `You are an Al Medical Voice Agent that just finished a voice conversation with a user. Based on Doctor AI Agent info and conversation between AI Doctor Agent and user.
 1. sessionld: a unique session identifier
 2. agent: the medical specialist name (e.g., "General Physician Al")
@@ -31,28 +31,35 @@ Return the result in this JSON format:
 Only include valid fields. Respond with nothing else.
 `
 
-export async function post(req:NextRequest) {
-    const { sessionId, sessionDetails, messages } = await req.json();
-    try{
-        const UserInput = "AI Doctor Agent Info:"+ JSON.stringify(sessionDetails)+"Conversation"+stringify(messages);
-        const completion = await openai.chat.completions.create({
-              model: "google/gemini-2.5-flash-lite",
-              messages: [
-                { role: "system", content: REPORT_SYSTEM_PROMPT },
-                { role: "user", content: UserInput },
-              ],
-            });
-            const response = completion.choices[0].message.content;
-            //@ts-ignore
-            const Resp = response.trim().replace("```json", "").replace("```", "");
-            const JSONResp = JSON.parse(Resp);
-            return NextResponse.json(JSONResp);
-            //Save report to database 
-            const result=await db.update(chatTable).set({
-                report: JSONResp
-                //@ts-ignore
-            }).where(eq(chatTable.sessionId,sessionId));
-    }catch(e){
-        return NextResponse.json(e);
-    }
+export async function POST(req: NextRequest) {
+  const { sessionId, sessionDetails, messages } = await req.json();
+  try {
+    const UserInput =
+      "AI Doctor Agent Info:" +
+      JSON.stringify(sessionDetails) +
+      "Conversation" +
+      stringify(messages);
+
+    const completion = await openai.chat.completions.create({
+      model: "google/gemini-2.5-flash-lite",
+      messages: [
+        { role: "system", content: REPORT_SYSTEM_PROMPT },
+        { role: "user", content: UserInput },
+      ],
+    });
+
+    const response = completion.choices[0].message.content ?? "";
+    const Resp = response.trim().replace("```json", "").replace("```", "");
+    const JSONResp = JSON.parse(Resp);
+
+    // save report to DB
+    await db
+      .update(chatTable)
+      .set({ report: JSONResp })
+      .where(eq(chatTable.sessionId, sessionId));
+
+    return NextResponse.json(JSONResp);
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
+  }
 }
