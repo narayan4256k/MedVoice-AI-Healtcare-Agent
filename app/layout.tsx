@@ -11,6 +11,7 @@ import {
 } from '@clerk/nextjs'
 import Provider from "./provider";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
           <Provider>
              <ThemeProvider attribute="class" defaultTheme="dark">
           {children}
+          <Toaster/>
         </ThemeProvider>
           </Provider>
         </body>

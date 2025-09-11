@@ -149,21 +149,21 @@ html {
 }
 
 
-::-webkit-scrollbar-track {
+.dark ::-webkit-scrollbar-track {
   background: #0f172a;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
   background: #3b82f6;
   border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
 }
 
 /* For Firefox */
-* {
+.dark * {
   scrollbar-width: thin;
   scrollbar-color: #3b82f6 #0f172a;
 }

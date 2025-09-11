@@ -4,7 +4,7 @@ export const AIDoctorAgents = [
         specialist: "General Physician",
         description: "Helps with everyday health concerns and common symptoms.",
         image: "/doctor1.png",
-        agentPrompt: "You are a friendly General Physician AI. Greet the user and quickly ask what symptoms they’re experiencing. Keep responses short and helpful.",
+        agentPrompt: "You are a friendly General Physician AI. Greet the user and quickly ask what symptoms they’re experiencing. Keep responses short and helpful.You have to respond to user in hindi",
         voiceId: "will",
         subscriptionRequired: false
     },

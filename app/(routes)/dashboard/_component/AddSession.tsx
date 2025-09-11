@@ -53,7 +53,7 @@ function AddSession() {
   return (
     <Dialog>
   <DialogTrigger>
-    <Button>+ Start a Consultation</Button>
+    <Button className='cursor-pointer'>+ Start a Consultation</Button>
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>
