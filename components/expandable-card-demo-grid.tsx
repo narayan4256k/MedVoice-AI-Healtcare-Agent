@@ -30,7 +30,8 @@ export default function ExpandableCardDemo() {
 
   
 
-  useOutsideClick(ref, () => setActive(null));
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(null));
+
 
   return (
     <>
