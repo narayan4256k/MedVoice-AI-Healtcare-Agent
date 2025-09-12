@@ -11,7 +11,7 @@ function DoctorAgentList({ onStartConsultation }: Props) {
   return (
     <>
       <h2 className="mt-10 font-bold text-2xl pb-5">AI Specialist Doctors</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center gap-5 m-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 items-center gap-5 ">
         {AIDoctorAgents.map((doctor, index) => (
           <motion.div
             key={index}
@@ -22,6 +22,7 @@ function DoctorAgentList({ onStartConsultation }: Props) {
               scale: 1.05,
               boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
             }}
+            className="mt-3"
           >
             <DoctorCard
               info={doctor}

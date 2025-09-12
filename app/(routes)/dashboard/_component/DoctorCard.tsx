@@ -29,7 +29,7 @@ function DoctorCard({ info, onStartConsultation }: Props) {
       <p className="text-sm text-gray-500 line-clamp-2">{info.description}</p>
 
       <Button
-        className="w-full mt-3 cursor-pointer"
+        className="w-full mt-3 cursor-pointer text-[10px] md:text-xs lg:text-[13px] xl:text-[15px] 2xl:text-[17px]"
         onClick={() => onStartConsultation?.(info)}
       >
         Start Consultation
