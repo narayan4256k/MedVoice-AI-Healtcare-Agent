@@ -51,7 +51,7 @@ function AppHeader() {
         </div>
 
         {/* Hamburger Button - Mobile */}
-        <div className="w-[150px] flex gap-5">                  
+        <div className="w-[150px] flex gap-5 md:hidden">                  
             <UserButton />
             <ModeToggle />
           <button
