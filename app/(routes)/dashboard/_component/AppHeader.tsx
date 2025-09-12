@@ -42,7 +42,7 @@ function AppHeader() {
                     height={70}
                     className="h-13 w-45 mx-7"
                   />
-            <div className="hidden md:flex items-center gap-10">
+            <div className="grid grid-cols-4 md:flex items-center gap-10">
               {MenuOptions.map((option) => (
                 <Link key={option.id} href={option.link}>
                   <h2 className="hover:scale-110 hover:font-bold cursor-pointer transition-all">
