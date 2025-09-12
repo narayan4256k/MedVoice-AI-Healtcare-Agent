@@ -21,7 +21,7 @@ const MenuOptions = [
   {
     id: 3,
     name: "Pricing",
-    link: "/pricing",
+    link: "/dashboard/billing",
   },
   {
     id: 4,

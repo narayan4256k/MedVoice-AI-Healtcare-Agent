@@ -121,14 +121,23 @@ function MedicalVoiceAgent() {
           setLiveTranscripts(transcript);
           setCurrentRole(role);
         } else if (transcriptType === "final") {
-          const [hindi, marathi] = await Promise.all([
-            translateText(transcript, "hi"),
-            translateText(transcript, "mr"),
-          ]);
-
-          setMessages((prev) => [...prev, { role, text: transcript, hindi, marathi }]);
+          // Step 1: Add raw transcript immediately
+          const newMsg: Message = { role, text: transcript };
+          setMessages((prev) => [...prev, newMsg]);
           setLiveTranscripts("");
           setCurrentRole(role);
+
+          // Step 2: Run translations in background
+          Promise.all([
+            translateText(transcript, "hi"),
+            translateText(transcript, "mr"),
+          ]).then(([hindi, marathi]) => {
+            setMessages((prev) =>
+              prev.map((m) =>
+                m === newMsg ? { ...m, hindi, marathi } : m
+              )
+            );
+          });
         }
       }
     });
@@ -155,9 +164,8 @@ function MedicalVoiceAgent() {
     } finally {
       setLoading(false);
     }
-    toast.success("Your Report Is Generated Successfully!")
-    router.replace('/dashboard');
-
+    toast.success("Your Report Is Generated Successfully!");
+    router.replace("/dashboard");
   };
 
   const generateReport = async () => {
@@ -220,14 +228,12 @@ function MedicalVoiceAgent() {
                   }`}
                 >
                   <p>{msg.text}</p>
-
-                  {/* {msg.hindi && (
+                  {msg.hindi && (
                     <p className="text-sm text-red-500">हिंदी: {msg.hindi}</p>
                   )}
                   {msg.marathi && (
                     <p className="text-sm text-blue-500">मराठी: {msg.marathi}</p>
-                  )} */}
-                  
+                  )}
                 </div>
               </div>
             ))}
