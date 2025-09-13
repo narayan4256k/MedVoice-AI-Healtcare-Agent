@@ -54,4 +54,25 @@ export async function GET(req: NextRequest) {
   // ✅ Safe email extraction again
   const email =
     user?.primaryEmailAddress?.emailAddress ||
-    use
+    user?.emailAddresses[0]?.emailAddress ||
+    "unknown";
+
+  if (sessionId === "all") {
+    const result = await db
+      .select()
+      .from(chatTable)
+      // @ts-ignore
+      .where(eq(chatTable.createdBy, email))
+      .orderBy(desc(chatTable.id));
+
+    return NextResponse.json(result);
+  } else {
+    const result = await db
+      .select()
+      .from(chatTable)
+      // @ts-ignore
+      .where(eq(chatTable.sessionId, sessionId));
+
+    return NextResponse.json(result[0]);
+  }
+}
