@@ -7,6 +7,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+import { useTheme } from "next-themes";
 
 import React, { useRef, useState } from "react";
 
@@ -231,16 +232,21 @@ export const MobileNavToggle = ({
 };
 
 export const NavbarLogo = () => {
+  
+  const { theme } = useTheme();
   return (
     <a
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
-        src="./darklogo.png"
-        alt="logo"
-        width={100}
-        height={100}
+        src={
+          theme === "dark" || theme === "system"
+            ? "/darklogo.png"
+            : "/lightlogo.png"
+        }
+        height={70}
+        width={120}
       />
     </a>
   );

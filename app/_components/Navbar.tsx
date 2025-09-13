@@ -63,14 +63,12 @@ export function NavbarDemo() {
               <ModeToggle />
             </div>
           ) : (
-            <NavbarButton variant="gradient">
-              <Link
-                href="/sign-in"
-                className="w-full h-full block text-center z-50"
-              >
-                Login
-              </Link>
-            </NavbarButton>
+            <Link
+              href="/sign-in"
+              className="px-4 py-2 rounded-md text-sm font-bold relative cursor-pointer hover:opacity-90 bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
+            >
+              Login
+            </Link>
           )}
         </NavBody>
 
