@@ -53,7 +53,7 @@ function AppHeader() {
         {/* Hamburger Button - Mobile */}
         <div className="w-[150px] flex gap-5 md:hidden">                  
             <UserButton />
-            <ModeToggle />
+            <ModeToggle/>
           <button
             className="md:hidden text-3xl"
             onClick={() => setIsOpen(!isOpen)}
