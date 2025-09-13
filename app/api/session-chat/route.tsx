@@ -7,23 +7,37 @@ import { desc, eq } from 'drizzle-orm';
 
 
 export async function POST(req: NextRequest) {
-    const{notes,selectedDoctor}=await req.json();
-    const user=await currentUser();
-    try{
-        const sessionId=uuidv4();
-        const result=await db.insert(chatTable).values({
-            sessionId: sessionId,
-            notes: notes,
-            selectedDoctor: selectedDoctor,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
-            createdOn: new Date().toString()
-            //@ts-ignore
-        }).returning({chatTable})
-        return NextResponse.json(result[0]?.chatTable);
-    }catch(e){
-        NextResponse.json(e);
+  try {
+    const { notes, selectedDoctor } = await req.json();
+    const user = await currentUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not authenticated" },
+        { status: 401 }
+      );
     }
+
+    const sessionId = uuidv4();
+
+    const result = await db.insert(chatTable).values({
+      sessionId,
+      notes,
+      selectedDoctor,
+      createdBy: user.primaryEmailAddress?.emailAddress ?? "unknown",
+      createdOn: new Date().toISOString(),
+    }).returning();
+
+    return NextResponse.json(result[0]);
+  } catch (e: any) {
+    console.error("API Error in /api/session-chat:", e);
+    return NextResponse.json(
+      { error: e.message || "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
+
 
 export async function GET(req:NextRequest) {
     const {searchParams}= new URL(req.url);
