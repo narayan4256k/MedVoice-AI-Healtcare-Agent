@@ -2,9 +2,8 @@ import { db } from "@/config/db";
 import { chatTable } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { v4 as uuidv4 } from 'uuid';
-import { desc, eq } from 'drizzle-orm';
-
+import { v4 as uuidv4 } from "uuid";
+import { desc, eq } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,15 +17,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // ✅ Safe email extraction (works for Google + Email/Password)
+    const email =
+      user.primaryEmailAddress?.emailAddress ||
+      user.emailAddresses[0]?.emailAddress ||
+      "unknown";
+
     const sessionId = uuidv4();
 
-    const result = await db.insert(chatTable).values({
-      sessionId,
-      notes,
-      selectedDoctor,
-      createdBy: user.primaryEmailAddress?.emailAddress ?? "unknown",
-      createdOn: new Date().toISOString(),
-    }).returning();
+    const result = await db
+      .insert(chatTable)
+      .values({
+        sessionId,
+        notes,
+        selectedDoctor,
+        createdBy: email,
+        createdOn: new Date().toISOString(),
+      })
+      .returning();
 
     return NextResponse.json(result[0]);
   } catch (e: any) {
@@ -38,26 +46,12 @@ export async function POST(req: NextRequest) {
   }
 }
 
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const sessionId = searchParams.get("sessionId");
+  const user = await currentUser();
 
-export async function GET(req:NextRequest) {
-    const {searchParams}= new URL(req.url);
-    const sessionId=searchParams.get('sessionId');
-    const user=await currentUser();
-
-    if(sessionId==="all"){
-        const result=await db.select().from(chatTable)
-        //@ts-ignore
-        .where(eq(chatTable.createdBy,user?.primaryEmailAddress?.emailAddress))
-        .orderBy(desc(chatTable.id));
-        return NextResponse.json(result);
-
-    }
-
-    else{
-        
-        const result=await db.select().from(chatTable)
-        //@ts-ignore
-        .where(eq(chatTable.sessionId,sessionId));
-        return NextResponse.json(result[0]);
-    }
-}
+  // ✅ Safe email extraction again
+  const email =
+    user?.primaryEmailAddress?.emailAddress ||
+    use
