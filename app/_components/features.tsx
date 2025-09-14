@@ -30,13 +30,13 @@ export const projects = [
       "Store and view your previous queries, symptoms, and suggestions in a secure, easy-to-access history.",
   },
   {
-    title: "Emergency Guidance",
+    title: "Multi-Language Support",
     description:
-      "Quick instructions and nearby hospital suggestions during emergencies to save critical time.",
+      "Seamless healthcare experience in your preferred language, including English, Hindi, Marathi, and more.",
   },
   {
-    title: "Dark/Light Mode",
+    title: "24×7 Availability",
     description:
-      "Personalize your experience with a clean, accessible UI that adapts to your system theme.",
+      "Connect with AI-powered doctors and specialists anytime, anywhere — healthcare without time limits.",
   },
 ];
