@@ -28,7 +28,7 @@ export function NavbarDemo() {
     },
     {
       name: "Pricing",
-      link: "#pricing",
+      link: "/dashboard/billing",
     },
     {
       name: "Contact",
