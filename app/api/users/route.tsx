@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const fullName = user.fullName || user.firstName || "Unknown";
+    const fullName = user.fullName || user.firstName || user.username || "Unknown";
 
     // ✅ Check if user already exists in your DB
     const users = await db
