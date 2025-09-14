@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ✅ Safe email extraction (works for Google + Email/Password)
+    
     const email =
       user.primaryEmailAddress?.emailAddress ||
       user.emailAddresses[0]?.emailAddress ||
