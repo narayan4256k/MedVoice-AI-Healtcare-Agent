@@ -7,6 +7,7 @@ import HistoryList from './_component/HistoryList';
 import DoctorAgentList from './_component/DoctorAgentList';
 import AddSession from './_component/AddSession';
 import DoctorCard, { DoctorAgent } from './_component/DoctorCard';
+import { FlipWordsDemo } from '@/app/_components/Flip';
 
  // import type
 

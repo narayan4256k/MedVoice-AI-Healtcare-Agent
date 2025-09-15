@@ -1,11 +1,10 @@
-
-import { BentoGridThirdDemo } from "./_components/Cards";
 import { CardHoverEffectDemo } from "./_components/features";
 import { TypewriterEffectSmoothDemo } from "./_components/Featurestext";
+import { FlipWordsDemo } from "./_components/Flip";
 import { Footer } from "./_components/footer";
 import HeroSectionOne from "./_components/Hero";
 import { NavbarDemo } from "./_components/Navbar";
-import { ModeToggle } from "./_components/toggle";
+import { MarqueeDemo } from "./_components/testimonals";
 
 export default function Page() {
   return (
@@ -20,9 +19,11 @@ export default function Page() {
       {/* Scrollable Hero Section */}
       <HeroSectionOne />
       <div id="features">
-        <TypewriterEffectSmoothDemo/>
-        <CardHoverEffectDemo/>
-        <Footer/>
+        <TypewriterEffectSmoothDemo />
+        <CardHoverEffectDemo />
+        <FlipWordsDemo />
+        <MarqueeDemo/>
+        <Footer />
       </div>
     </>
   );
