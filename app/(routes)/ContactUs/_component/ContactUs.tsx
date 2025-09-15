@@ -4,6 +4,7 @@ import { Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatedPinDemo } from "./Location";
+import { toast } from "sonner";
 
 export default function Contactus() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ export default function Contactus() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    alert("Thank you for reaching out! We'll get back to you soon.");
+    toast.success("Message sent successfully!");
     setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
