@@ -8,6 +8,7 @@ import DoctorAgentList from './_component/DoctorAgentList';
 import AddSession from './_component/AddSession';
 import DoctorCard, { DoctorAgent } from './_component/DoctorCard';
 import { FlipWordsDemo } from '@/app/_components/Flip';
+import AddChat from './_component/AddChat';
 
  // import type
 
@@ -45,7 +46,10 @@ function Dashboard() {
     <div>
       <div className='flex justify-between items p-2 items-center'>
         <h2 className='text-2xl font-bold'>My DashBoard</h2>
-        <AddSession />
+        <div className='flex gap-2'>
+          <AddChat/>
+          <AddSession />
+        </div>
       </div>
       <HistoryList />
       <DoctorAgentList onStartConsultation={startSessionWithDoctor} />

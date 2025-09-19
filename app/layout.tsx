@@ -8,10 +8,11 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
+} from "@clerk/nextjs";
 import Provider from "./provider";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,10 +41,12 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Provider>
-             <ThemeProvider attribute="class" defaultTheme="dark">
-          {children}
-          <Toaster/>
-        </ThemeProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark">
+              <TooltipProvider>
+                {children}
+              </TooltipProvider>
+              <Toaster />
+            </ThemeProvider>
           </Provider>
         </body>
       </html>

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Vapi from "@vapi-ai/web";
 import { toast } from "sonner";
+import ViewReportDialog from "../../_component/ViewReportDialog";
 
 // -------------------- TYPES --------------------
 export type SessionDetails = {
@@ -164,7 +165,7 @@ function MedicalVoiceAgent() {
     } finally {
       setLoading(false);
     }
-    toast.success("Your Report Is Generated Successfully!");
+     toast.success("Your Report Is Generated Successfully!");
     router.replace("/dashboard");
   };
 
