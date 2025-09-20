@@ -46,7 +46,7 @@ function Dashboard() {
     <div>
       <div className='flex justify-between items p-2 items-center'>
         <h2 className='text-2xl font-bold'>My DashBoard</h2>
-        <div className='flex gap-2'>
+        <div className='flex gap-2 flex-col ml-5 md:flex-row'>
           <AddChat/>
           <AddSession />
         </div>
