@@ -53,7 +53,7 @@ export function NavbarDemo() {
             alt="Logo"
             width={120}
             height={70}
-            className="h-13 w-45 mx-7"
+            className="h-13 w-45 mr-7"
           />
 
           <NavItems items={navItems} />

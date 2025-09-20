@@ -30,7 +30,7 @@ function AppHeader() {
           alt="Logo"
           width={120}
           height={70}
-          className="h-13 w-45 mx-7"
+          className="h-13 w-45 mr-7"
         />
 
         {/* Desktop Menu */}
@@ -65,7 +65,7 @@ function AppHeader() {
 
       {/* Dropdown - Mobile */}
       {isOpen && (
-        <div className="absolute md:hidden flex flex-col gap-4 p-4 bg-gray-200/85 dark:bg-slate-900/80 rounded-2xl right-2.5 w-30">
+        <div className="absolute md:hidden flex flex-col gap-4 p-4 bg-gray-200/85 dark:bg-slate-900/80 rounded-2xl right-2.5 w-30 z-50">
           {MenuOptions.map((option) => (
             <Link key={option.id} href={option.link}>
               <h2 className="hover:scale-105 hover:font-semibold cursor-pointer transition-all">
