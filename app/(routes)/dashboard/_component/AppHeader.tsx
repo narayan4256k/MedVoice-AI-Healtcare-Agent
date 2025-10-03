@@ -1,5 +1,4 @@
 "use client";
-
 import { ModeToggle } from "@/app/_components/toggle";
 import { UserButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";

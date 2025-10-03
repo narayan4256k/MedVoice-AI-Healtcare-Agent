@@ -10,6 +10,9 @@ import Vapi from "@vapi-ai/web";
 import { toast } from "sonner";
 import ViewReportDialog from "../../_component/ViewReportDialog";
 
+// ✅ Import your doctor agents
+import { AIDoctorAgents } from "@/shared/list";
+
 // -------------------- TYPES --------------------
 export type SessionDetails = {
   id: number;
@@ -68,12 +71,17 @@ function MedicalVoiceAgent() {
   const formatTime = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
   };
 
   const getSessionDetails = async () => {
     try {
-      const result = await axios.get("/api/session-chat?sessionId=" + sessionId);
+      const result = await axios.get(
+        "/api/session-chat?sessionId=" + sessionId
+      );
       setSessionDetails(result.data);
     } catch (err) {
       console.error("❌ Error fetching session:", err);
@@ -93,16 +101,66 @@ function MedicalVoiceAgent() {
 
   // -------------------- CALL CONTROL --------------------
   const startCall = () => {
+    if (!sessionDetails?.selectedDoctor) {
+      toast.error("No doctor selected for this session.");
+      return;
+    }
+
+    const doctor = AIDoctorAgents.find(
+      (d) => d.id === sessionDetails.selectedDoctor.id
+    );
+    if (!doctor) {
+      toast.error("Invalid doctor configuration.");
+      return;
+    }
+
     const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY!);
     setLoading(true);
     setVapiInstance(vapi);
 
-    const doctorId = sessionDetails?.selectedDoctor?.id;
-    const assistantId = [1, 2, 3, 9, 10].includes(Number(doctorId))
-      ? process.env.NEXT_PUBLIC_VAPI_VOICE_ASSISTANT_ID
-      : process.env.NEXT_PUBLIC_VAPI_VOICE_ASSISTANT_ID2;
+    const selectedVoiceId = [1, 2, 3, 9, 10].includes(Number(sessionDetails.selectedDoctor.id))
+    ? "michael"
+    : "jennifer";
+    // ✅ Build dynamic assistant config
+    const assistantOptions = {
+      name: `Dr. ${doctor.specialist}`,
+      firstMessage: `Hello  I am your ${doctor.specialist}. Let's talk about your concern.`,
+      transcriber: {
+        provider: "deepgram",
+        model: "nova-2",
+        language: "en-US",
+      },
+      voice: {
+        provider: "playht",
+        voiceId: selectedVoiceId,
+        speed: 0.80,
+      },
+      model: {
+        provider: "openai",
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `
+              ${doctor.agentPrompt}
 
-    vapi.start(assistantId);
+              [Guidelines]
+              1. Start with a warm greeting and mention you’re a ${doctor.specialist}.
+              2. Ask short, clear questions to understand the patient’s issue.
+              3. Provide simple, safe explanations or lifestyle suggestions.
+              4. Remeber to provide Medicines  which Will give relief
+              4. If patient seems confused, re-explain in simpler words.
+              5. Be empathetic, supportive, and reassuring.
+              6. End with a positive note or safe next step.
+            `.trim(),
+          },
+        ],
+      },
+    };
+
+    console.log("🚀 Starting Vapi with config:", assistantOptions);
+
+    vapi.start(assistantOptions);
 
     vapi.on("call-start", () => {
       setCallStarted(true);
@@ -134,9 +192,7 @@ function MedicalVoiceAgent() {
             translateText(transcript, "mr"),
           ]).then(([hindi, marathi]) => {
             setMessages((prev) =>
-              prev.map((m) =>
-                m === newMsg ? { ...m, hindi, marathi } : m
-              )
+              prev.map((m) => (m === newMsg ? { ...m, hindi, marathi } : m))
             );
           });
         }
@@ -165,7 +221,7 @@ function MedicalVoiceAgent() {
     } finally {
       setLoading(false);
     }
-     toast.success("Your Report Is Generated Successfully!");
+    toast.success("Your Report Is Generated Successfully!");
     router.replace("/dashboard");
   };
 
@@ -196,7 +252,9 @@ function MedicalVoiceAgent() {
           />
           {callStarted ? "Connected" : "Not Connected"}
         </h2>
-        <h2 className="font-medium text-xl text-gray-500">{formatTime(time)}</h2>
+        <h2 className="font-medium text-xl text-gray-500">
+          {formatTime(time)}
+        </h2>
       </div>
 
       {/* Doctor Info + Messages */}
@@ -219,7 +277,9 @@ function MedicalVoiceAgent() {
             {messages?.slice(-4).map((msg, index) => (
               <div
                 key={index}
-                className={`my-2 ${msg.role === "user" ? "text-right" : "text-left"}`}
+                className={`my-2 ${
+                  msg.role === "user" ? "text-right" : "text-left"
+                }`}
               >
                 <div
                   className={`inline-block px-4 py-2 rounded-lg max-w-[75%] ${
@@ -233,7 +293,9 @@ function MedicalVoiceAgent() {
                     <p className="text-sm text-red-500">हिंदी: {msg.hindi}</p>
                   )}
                   {msg.marathi && (
-                    <p className="text-sm text-blue-500">मराठी: {msg.marathi}</p>
+                    <p className="text-sm text-blue-500">
+                      मराठी: {msg.marathi}
+                    </p>
                   )}
                 </div>
               </div>
