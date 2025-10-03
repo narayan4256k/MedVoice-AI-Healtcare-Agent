@@ -5,8 +5,18 @@ import React, { useEffect, useState } from 'react'
 import AddSession from './AddSession'
 import axios from 'axios'
 import HistoryTable from './HistoryTable'
-import { SessionDetails } from '../medical-agent/[sessionId]/page'
 import { Loader2 } from 'lucide-react'
+import { DoctorAgent } from './DoctorCard'
+
+export type SessionDetails = {
+  id: number;
+  notes: string;
+  sessionId: string;
+  report: any;
+  selectedDoctor: DoctorAgent;
+  createdOn: string;
+};
+
 
 function HistoryList() {
   const [historyList, setHistoryList] = useState<SessionDetails[]>([])

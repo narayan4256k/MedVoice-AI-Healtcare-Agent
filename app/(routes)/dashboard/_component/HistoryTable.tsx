@@ -8,10 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { SessionDetails } from '../medical-agent/[sessionId]/page'
 import { Button } from '@/components/ui/button'
 import moment from 'moment'
 import ViewReportDialog from './ViewReportDialog'
+import { SessionDetails } from './HistoryList'
 
 type Props = {
   historyList: SessionDetails[]

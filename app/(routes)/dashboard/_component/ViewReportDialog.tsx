@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
-import { SessionDetails } from '../medical-agent/[sessionId]/page'
+import { SessionDetails } from './HistoryList'
 
 type Props = {
   record: SessionDetails
