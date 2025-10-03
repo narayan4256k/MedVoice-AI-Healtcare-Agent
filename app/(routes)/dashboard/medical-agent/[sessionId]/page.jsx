@@ -9,43 +9,21 @@ import { Button } from "@/components/ui/button";
 import Vapi from "@vapi-ai/web";
 import { toast } from "sonner";
 import ViewReportDialog from "../../_component/ViewReportDialog";
-
-// ✅ Import your doctor agents
 import { AIDoctorAgents } from "@/shared/list";
 
-// -------------------- TYPES --------------------
-export type SessionDetails = {
-  id: number;
-  notes: string;
-  sessionId: string;
-  report: any;
-  selectedDoctor: DoctorAgent;
-  createdOn: string;
-};
-
-type Message = {
-  role: string;
-  text: string;
-  hindi?: string;
-  marathi?: string;
-};
-
-// -------------------- COMPONENT --------------------
 function MedicalVoiceAgent() {
   const { sessionId } = useParams();
-  const [sessionDetails, setSessionDetails] = useState<SessionDetails>();
+  const [sessionDetails, setSessionDetails] = useState(null);
   const [callStarted, setCallStarted] = useState(false);
-  const [vapiInstance, setVapiInstance] = useState<any>(null);
+  const [vapiInstance, setVapiInstance] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [currentRole, setCurrentRole] = useState<string>();
-  const [liveTranscripts, setLiveTranscripts] = useState<string>();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [currentRole, setCurrentRole] = useState("");
+  const [liveTranscripts, setLiveTranscripts] = useState("");
+  const [messages, setMessages] = useState([]);
   const router = useRouter();
-  // Timer state
   const [time, setTime] = useState(0);
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+  const [timerId, setTimerId] = useState(null);
 
-  // -------------------- EFFECTS --------------------
   useEffect(() => {
     if (sessionId) getSessionDetails();
   }, [sessionId]);
@@ -67,29 +45,22 @@ function MedicalVoiceAgent() {
     };
   }, [callStarted]);
 
-  // -------------------- HELPERS --------------------
-  const formatTime = (totalSeconds: number) => {
+  const formatTime = (totalSeconds) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
-      2,
-      "0"
-    )}`;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   };
 
   const getSessionDetails = async () => {
     try {
-      const result = await axios.get(
-        "/api/session-chat?sessionId=" + sessionId
-      );
+      const result = await axios.get("/api/session-chat?sessionId=" + sessionId);
       setSessionDetails(result.data);
     } catch (err) {
       console.error("❌ Error fetching session:", err);
     }
   };
 
-  // Translate function
-  const translateText = async (text: string, targetLang: "hi" | "mr") => {
+  const translateText = async (text, targetLang) => {
     try {
       const res = await axios.post("/api/translate", { text, targetLang });
       return res.data.translatedText;
@@ -99,7 +70,6 @@ function MedicalVoiceAgent() {
     }
   };
 
-  // -------------------- CALL CONTROL --------------------
   const startCall = () => {
     if (!sessionDetails?.selectedDoctor) {
       toast.error("No doctor selected for this session.");
@@ -114,17 +84,19 @@ function MedicalVoiceAgent() {
       return;
     }
 
-    const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY!);
+    const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY);
     setLoading(true);
     setVapiInstance(vapi);
 
-    const selectedVoiceId = [1, 2, 3, 9, 10].includes(Number(sessionDetails.selectedDoctor.id))
-    ? "michael"
-    : "jennifer";
-    // ✅ Build dynamic assistant config
+    const selectedVoiceId = [1, 2, 3, 9, 10].includes(
+      Number(sessionDetails.selectedDoctor.id)
+    )
+      ? "michael"
+      : "jennifer";
+
     const assistantOptions = {
       name: `Dr. ${doctor.specialist}`,
-      firstMessage: `Hello  I am your ${doctor.specialist}. Let's talk about your concern.`,
+      firstMessage: `Hello I am your ${doctor.specialist}. Let's talk about your concern.`,
       transcriber: {
         provider: "deepgram",
         model: "nova-2",
@@ -133,7 +105,7 @@ function MedicalVoiceAgent() {
       voice: {
         provider: "playht",
         voiceId: selectedVoiceId,
-        speed: 0.80,
+        speed: 0.8,
       },
       model: {
         provider: "openai",
@@ -145,15 +117,15 @@ function MedicalVoiceAgent() {
               ${doctor.agentPrompt}
 
               [Guidelines]
-              1. Start with a warm greeting and mention you’re a ${doctor.specialist}.
-              2. Ask short, clear questions to understand the patient’s issue.
-              3. Provide simple, safe explanations or lifestyle suggestions.
-              4. Remeber to provide Medicines  which Will give relief
-              4. If patient seems confused, re-explain in simpler words.
-              5. Be empathetic, supportive, and reassuring.
-              6. End with a positive note or safe next step.
-            `.trim(),
-          },
+              1. Start with a warm greeting and mention you're a ${doctor.specialist}
+              2. Ask short, clear questions to understand the patient's issue
+              3. Provide simple, safe explanations or lifestyle suggestions
+              4. Remember to provide medicines which will give relief
+              5. If patient seems confused, re-explain in simpler words
+              6. Be empathetic, supportive, and reassuring
+              7. End with a positive note or safe next step
+            `.trim()
+          }
         ],
       },
     };
@@ -180,13 +152,11 @@ function MedicalVoiceAgent() {
           setLiveTranscripts(transcript);
           setCurrentRole(role);
         } else if (transcriptType === "final") {
-          // Step 1: Add raw transcript immediately
-          const newMsg: Message = { role, text: transcript };
+          const newMsg = { role, text: transcript };
           setMessages((prev) => [...prev, newMsg]);
           setLiveTranscripts("");
           setCurrentRole(role);
 
-          // Step 2: Run translations in background
           Promise.all([
             translateText(transcript, "hi"),
             translateText(transcript, "mr"),
@@ -239,10 +209,8 @@ function MedicalVoiceAgent() {
     }
   };
 
-  // -------------------- UI --------------------
   return (
     <div className="border-2 rounded-3xl p-10 bg-gray-100 dark:bg-slate-900">
-      {/* Connection status + Timer */}
       <div className="flex justify-between items-center">
         <h2 className="p-1 px-2 gap-1.5 flex items-center">
           <Circle
@@ -257,7 +225,6 @@ function MedicalVoiceAgent() {
         </h2>
       </div>
 
-      {/* Doctor Info + Messages */}
       {sessionDetails && (
         <div className="flex flex-col items-center mt-10">
           <Image
@@ -272,7 +239,6 @@ function MedicalVoiceAgent() {
           </h2>
           <p className="text-sm dark:text-gray-500">AI Medical Voice Agent</p>
 
-          {/* Chat Bubbles */}
           <div className="mt-10 w-full">
             {messages?.slice(-4).map((msg, index) => (
               <div
@@ -308,14 +274,17 @@ function MedicalVoiceAgent() {
             )}
           </div>
 
-          {/* Call Controls */}
           {!callStarted ? (
             <Button
               className="mt-20 hover:scale-105 transition-all"
               onClick={startCall}
               disabled={loading}
             >
-              {loading ? <Loader className="animate-spin" /> : <PhoneCallIcon />}
+              {loading ? (
+                <Loader className="animate-spin" />
+              ) : (
+                <PhoneCallIcon />
+              )}
               Start Call
             </Button>
           ) : (
