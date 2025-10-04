@@ -17,7 +17,6 @@ export type SessionDetails = {
   createdOn: string;
 };
 
-
 function HistoryList() {
   const [historyList, setHistoryList] = useState<SessionDetails[]>([])
   const [loading, setLoading] = useState(false)

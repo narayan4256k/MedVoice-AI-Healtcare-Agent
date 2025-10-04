@@ -103,8 +103,8 @@ function MedicalVoiceAgent() {
         language: "en-US",
       },
       voice: {
-        provider: "playht",
-        voiceId: selectedVoiceId,
+        provider: "11labs",
+        voiceId: doctor.voiceId,
         speed: 0.8,
       },
       model: {
