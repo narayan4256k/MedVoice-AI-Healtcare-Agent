@@ -86,7 +86,7 @@ function MedicalVoiceAgent() {
       return;
     }
 
-    const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY);
+    
     setLoading(true);
     setVapiInstance(vapi);
 
@@ -132,19 +132,7 @@ function MedicalVoiceAgent() {
       },
     };
 
-    console.log("🚀 Starting Vapi with config:", assistantOptions);
-
-    vapi.start(assistantOptions);
-
-    vapi.on("call-start", () => {
-      setCallStarted(true);
-      setLoading(false);
-    });
-
-    vapi.on("call-end", () => {
-      setCallStarted(false);
-      setLoading(false);
-    });
+   
 
     vapi.on("message", async (message) => {
       if (message.type === "transcript") {
@@ -171,8 +159,7 @@ function MedicalVoiceAgent() {
       }
     });
 
-    vapi.on("speech-start", () => setCurrentRole("assistant"));
-    vapi.on("speech-end", () => setCurrentRole("user"));
+  
   };
 
   const disconnectCall = async () => {
