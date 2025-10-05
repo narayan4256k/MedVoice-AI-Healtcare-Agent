@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🩺 AI Health and Medical Advisor - INNOQUEST HACKATHON 2025  
 
-## Getting Started
+> **Team Name:** UNETHICAL PROGRAMMERS  
+> **Hackathon:** INNOQUEST HACKATHON 2025  
+> **Theme:** Healthcare  
+> **PS Category:** Software  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 👨‍💻 Team Members  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Name | Role |
+| :--- | :--- |
+| **Narayan Malvankar** | Software Engineer / AI Developer /Full Stack Developer /Backend & Database Engineer |
+| **Tejas Argade** | Full Stack Developer |
+| **Vishwajeet Suryawanshi** | Backend & Database Engineer |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 Project Overview  
 
-## Learn More
+The **AI Health and Medical Advisor** is a smart healthcare companion that leverages AI to provide **instant, reliable, and personalized medical guidance**.  
+Our goal is to make healthcare more accessible — especially in areas where access to doctors and medical expertise is limited.  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛑 The Problem: A Failing System  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The global healthcare system is under immense strain. As populations grow and the demand for healthcare rises, many people are left without timely access to medical advice.  
 
-## Deploy on Vercel
+**Major Challenges:**  
+- ⚕️ **Doctor Shortage:** Not enough qualified doctors to meet patient demand.  
+- ⏱️ **Access Delays:** Long waiting times for consultations and appointments.  
+- 💊 **Health Risks:** Self-diagnosis and self-medication often lead to incorrect treatments and worsened conditions.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 The Solution  
+
+Our **Intelligent AI Healthcare Advisor** provides **fast, reliable, and personalized health support** through an easy-to-use web and voice-based system.  
+
+**✨ Key Features:**  
+- 🤖 **Quick Doctor Match:** AI listens to user symptoms and instantly suggests the best available doctors.  
+- 🗣️ **Instant, Reliable Advice:** Voice-enabled, multilingual AI that understands user queries and provides safe medical suggestions.  
+- 📋 **Personal Health Record:** Automatically generated consultation reports, securely stored and easily accessible anytime.  
+
+---
+
+## 💻 Tech Stack  
+
+We’re building this platform using cutting-edge technologies to ensure **speed, scalability, and security**.  
+
+| Category | Technology / Role |
+| :--- | :--- |
+| **Frontend / Framework** | React.js / Next.js — modern, responsive UI |
+| **Backend** | Next.js API Routes handles logic and routing |
+| **AI / LLM** | OpenRoutesAI API / Custom-trained model for medical Q&A |
+| **Voice / Speech Processing** |Vapi AI |
+| **Database** | =Neon PostgreSQL — secure data management |
+| **Authentication** | Clerk |
+| **Deployment** | AWS / Vercel  |
+
+---
+
