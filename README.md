@@ -51,3 +51,40 @@ We’re building this platform using cutting-edge technologies to ensure **speed
 
 ---
 
+## 📷 Preview
+
+<!-- 🖼 Big Main Screenshot -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4b49eb2a-f34e-45a0-97a2-acbff521dc3c" width="90%" />
+</p>
+
+---
+
+<!-- 📌 Three-Image Grid -->
+<p align="center">
+  
+  <img src="https://github.com/user-attachments/assets/a68a95d6-d157-44dd-88d4-65e92bfefad7" width="45%" />
+  <img src="https://github.com/user-attachments/assets/75152d84-6ae0-432f-bd39-9ee5f181c27e" width="45%" />
+  <img src="https://github.com/user-attachments/assets/2b7dd969-f0b1-4586-965d-6bc6552ac0d0" width="45%" />
+  <img src="https://github.com/user-attachments/assets/cb22bfec-491a-48dc-aa19-f8dbf1f3c75f" width="45%" />
+</p>
+
+---
+
+<!-- 🖼 Remaining Screenshots in 2-Column Layout -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/619ac861-559a-4d0f-8f1c-67f3454e272c" width="45%" />
+  <img src="https://github.com/user-attachments/assets/d112a1bf-8d45-46b7-9348-1c25b306bcc1" width="45%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a456cf82-8d54-4811-8f15-22b6bfaee48c" width="45%" />
+</p>
+
+---
+
+<p align="center">
+ <img src="https://github.com/user-attachments/assets/9e8d4b37-0183-4a84-aa88-7377fb0acc48" width="30%" />
+</p>
+
+
