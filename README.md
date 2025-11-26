@@ -1,21 +1,10 @@
-# 🩺 AI Health and Medical Advisor - INNOQUEST HACKATHON 2025  
+# 🩺 AI Health and Medical Advisor 
 
-> **Team Name:** UNETHICAL PROGRAMMERS  
-> **Hackathon:** INNOQUEST HACKATHON 2025  
-> **Theme:** Healthcare  
-> **PS Category:** Software  
+## 🚀 Live Demo
 
----
+[![Live Preview](https://img.shields.io/badge/Live%20Preview-Click%20Here-brightgreen?style=for-the-badge)](https://ai-driven-symptom-checker.vercel.app/dashboard)
 
-## 👨‍💻 Team Members  
 
-| Name | Role |
-| :--- | :--- |
-| **Narayan Malvankar** | Software Engineer / AI Developer /Full Stack Developer /Backend & Database Engineer |
-| **Tejas Argade** | Full Stack Developer |
-| **Vishwajeet Suryawanshi** | Backend & Database Engineer |
-
----
 
 ## 💡 Project Overview  
 
